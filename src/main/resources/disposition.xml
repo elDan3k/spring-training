@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="dispositionService" class="pl.training.bank.disposition.DispositionService">
+        <constructor-arg name="accountRepository" ref="accountRepository"/>
+        <constructor-arg name="operations">
+            <map>
+                <entry key="deposit" value-ref="deposit"/>
+                <entry key="withdraw" value-ref="withdraw"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dispositionLogger" class="pl.training.bank.disposition.ConsoleDispositionLogger"/>
+
+    <aop:config>
+        <aop:pointcut id="process" expression="execution(void pl.training.bank.disposition.DispositionService.process(..))"/>
+        <aop:aspect ref="dispositionLogger">
+            <aop:before method="onStart" pointcut="execution(void pl.training.bank.disposition.DispositionService.process(..)) and args(disposition)"/>
+            <aop:after-returning method="onSuccess" pointcut-ref="process"/>
+            <aop:after-throwing method="onException" pointcut-ref="process" throwing="ex"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

@@ -9,7 +9,7 @@ import pl.training.bank.disposition.DispositionService;
 public class Application {
 
     public static void main(String[] args) {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bank.xml")) {
             AccountService accountService = context.getBean(AccountService.class);
             DispositionService dispositionService = context.getBean(DispositionService.class);
 

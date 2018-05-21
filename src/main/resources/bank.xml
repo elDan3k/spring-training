@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <aop:aspectj-autoproxy/>
+
+    <import resource="classpath:account.xml"/>
+    <import resource="classpath:disposition.xml"/>
+    <import resource="classpath:operation.xml"/>
+
+    <bean class="pl.training.bank.common.BeanLoggerPostProcessor"/>
+
+    <bean id="profiler" class="pl.training.bank.common.Profiler"/>
+
+    <bean id="contextListener" class="pl.training.bank.common.ContextListener"/>
+
+    <bean id="multicaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor">
+            <bean class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+        </property>
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="profiler">
+            <!--<aop:around method="logExecutionTime" pointcut="bean(dispositionService)"/>-->
+            <aop:around method="logExecutionTime" pointcut="@annotation(pl.training.bank.common.ExecutionTime)"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
