@@ -3,9 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="accountNumberGenerator" class="pl.training.bank.generator.IncrementalAccountNumberGenerator"/>
+    <bean id="accountNumberGenerator" class="pl.training.bank.generator.JdbcTemplateIncrementalAccountNumberGenerator">
+        <constructor-arg name="dataSource" ref="datasource"/>
+    </bean>
 
-    <bean id="accountRepository" class="pl.training.bank.account.HashMapAccountRepository"/>
+    <bean id="accountRepository" class="pl.training.bank.account.JdbcTemplateAccountRepository">
+        <constructor-arg name="dataSource" ref="datasource"/>
+    </bean>
 
     <bean id="accountService" class="pl.training.bank.account.AccountService" init-method="init" destroy-method="destroy">
         <constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>
