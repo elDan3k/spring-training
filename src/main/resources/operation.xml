@@ -11,9 +11,16 @@
 
     <bean id="largeDepositListener" class="pl.training.bank.operation.LargeDepositListener"/>
 
+    <bean id="operationHistoryLogger" class="pl.training.bank.operation.history.OperationHistoryLogger">
+        <constructor-arg name="operationHistoryRepository" ref="operationHistoryRepository"/>
+    </bean>
+
     <aop:config>
         <aop:aspect ref="largeDepositLogger">
             <aop:after-returning pointcut="execution(void pl.training.bank.disposition.DispositionService.process(..)) and args(disposition)" method="onLargeDeposit"/>
+        </aop:aspect>
+        <aop:aspect ref="operationHistoryLogger">
+            <aop:after-returning pointcut="execution(void pl.training.bank.disposition.DispositionService.process(..)) and args(disposition)" method="logOperation"/>
         </aop:aspect>
     </aop:config>
 
