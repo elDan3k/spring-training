@@ -5,7 +5,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <aop:aspectj-autoproxy/>
-    <tx:annotation-driven/>
 
     <import resource="classpath:account.xml"/>
     <import resource="classpath:disposition.xml"/>
@@ -40,8 +39,8 @@
         <property name="maximumPoolSize" value="${database.max-pool-size}"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <constructor-arg name="dataSource" ref="datasource"/>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <tx:advice id="transactionInterceptor">
@@ -51,7 +50,18 @@
     </tx:advice>
 
     <aop:config>
-        <aop:advisor advice-ref="transactionInterceptor" pointcut="bean(accountService) and bean(dispositionService)"/>
+        <aop:advisor advice-ref="transactionInterceptor" pointcut="bean(accountService)"/>
+        <aop:advisor advice-ref="transactionInterceptor" pointcut="bean(dispositionService)"/>
     </aop:config>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="packagesToScan" value="pl.training.bank"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
 
 </beans>
