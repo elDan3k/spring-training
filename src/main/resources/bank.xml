@@ -39,8 +39,8 @@
         <property name="maximumPoolSize" value="${database.max-pool-size}"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <constructor-arg name="emf" ref="entityManagerFactory"/>
     </bean>
 
     <tx:advice id="transactionInterceptor">
@@ -54,14 +54,17 @@
         <aop:advisor advice-ref="transactionInterceptor" pointcut="bean(dispositionService)"/>
     </aop:config>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="packagesToScan" value="pl.training.bank"/>
-        <property name="hibernateProperties">
+        <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="javax.persistence.schema-generation.database.action">drop-and-create</prop>
             </props>
         </property>
     </bean>
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
 </beans>
