@@ -12,7 +12,7 @@
 <div class="container">
     <%@ include file="menu.jsp" %>
     <div class="content">
-        <h1><s:message code="operation"/> ${param.operationName}</h1>
+        <h1><s:message code="operation"/> <s:message code="${param.operationName}"/></h1>
         <sf:form modelAttribute="disposition" method="post">
             <div class="form-group">
                 <label for="accountNumber"><s:message code="accountNumber"/></label>
