@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BankService } from '../../service/bank.service';
+import {Account} from "../../model/account";
 
 @Component({
   selector: 'app-menu',
@@ -11,6 +12,8 @@ export class MenuComponent {
   showMessage = false;
   message = 'Operation status: success';
 
+  accounts: Account[] = [];
+
   constructor(private bankService: BankService, ) {
   }
 
@@ -20,6 +23,11 @@ export class MenuComponent {
         this.showMessage = true
         this.hideMessage();
       });
+  }
+
+  showAccounts() {
+    this.bankService.getAccounts()
+      .subscribe((resultPage) => this.accounts = resultPage.data);
   }
 
   private hideMessage() {

@@ -1,12 +1,12 @@
 <div class="text-center menu">
   <button class="btn btn-sm btn-outline-primary" (click)="createAccount()">Create account</button>
-  <button class="btn btn-sm btn-outline-primary">Show accounts</button>
-  <button class="btn btn-sm btn-outline-primary">Deposit</button>
-  <button class="btn btn-sm btn-outline-primary">Withdraw</button>
+  <button class="btn btn-sm btn-outline-primary" (click)="showAccounts()">Show accounts</button>
+  <button class="btn btn-sm btn-outline-primary">Disposition</button>
   <button class="btn btn-sm btn-outline-primary">Logout</button>
 </div>
 <div *ngIf="showMessage" class="alert alert-success text-center">
   {{message}}
 </div>
+<app-accounts-list [accounts]="accounts"></app-accounts-list>
 
-
+<app-disposition></app-disposition>
