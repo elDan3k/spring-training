@@ -10,18 +10,35 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.training.bank.user.UserService;
+import pl.training.bank.user.User;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
 public class Security extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("maria").password(passwordEncoder.encode("123")).roles("ADMIN");
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select login,password,enabled from users where login = ?")
+                .authoritiesByUsernameQuery("select login,role from users where login = ?");
+                //.inMemoryAuthentication()
+                //.withUser("maria").password(passwordEncoder.encode("123")).roles("ADMIN");
+    }
+
+    @PostConstruct
+    public void init() {
+        User user = new User("maria", "123", "ROLE_ADMIN");
+        userService.addUser(user);
     }
 
     @Override
