@@ -1,0 +1,14 @@
+.menu {
+  padding: 20px;
+  border-bottom: 1px dashed lightgray;
+  margin-bottom: 20px;
+}
+
+.menu button {
+  margin: 0 5px;
+}
+
+.alert {
+  width: 20%;
+  margin: 5px auto;
+}
