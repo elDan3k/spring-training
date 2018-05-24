@@ -1,4 +1,4 @@
-package pl.training.bank.config;
+package pl.training.bank;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +15,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @ComponentScan(basePackages = "pl.training.bank")
 @EnableWebMvc
-@Import({Bank.class, Security.class})
+@Import({BankConfig.class, SecurityConfig.class})
 @Configuration
-public class Mvc implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

@@ -1,4 +1,4 @@
-package pl.training.bank.config;
+package pl.training.bank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
-public class Security extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
