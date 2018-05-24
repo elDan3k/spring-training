@@ -2,6 +2,7 @@ package pl.training.bank.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.training.bank.common.mapper.Mapper;
 import pl.training.bank.common.mapper.ModelMapperAdapter;
@@ -26,6 +27,14 @@ public class Mvc implements WebMvcConfigurer {
                 .select()
                 .apis(basePackage("pl.training.bank"))
                 .build();
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("*")
+                .allowedHeaders("*");
     }
 
 }
