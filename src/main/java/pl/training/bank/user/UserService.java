@@ -15,6 +15,12 @@ public class UserService implements UserDetailsService {
     @NonNull
     private PasswordEncoder passwordEncoder;
 
+    public void addUser(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.getByUsername(username)
