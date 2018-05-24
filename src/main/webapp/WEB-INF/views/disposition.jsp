@@ -24,6 +24,7 @@
                 <sf:input id="funds" class="form-control" path="funds"/>
                 <sf:errors path="funds"/>
             </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <button type="submit" class="btn btn-primary float-right"><s:message code="submit"/></button>
         </sf:form>
 
