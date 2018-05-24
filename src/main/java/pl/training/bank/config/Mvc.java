@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @ComponentScan(basePackages = "pl.training.bank")
 @EnableWebMvc
-@Import(Bank.class)
+@Import({Bank.class, Security.class})
 @Configuration
 public class Mvc implements WebMvcConfigurer {
 

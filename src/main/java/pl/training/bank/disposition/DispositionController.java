@@ -37,6 +37,6 @@ public class DispositionController {
     @ExceptionHandler(InsufficientFundsException.class)
     public ModelAndView onInsufficientFundsException(InsufficientFundsException ex) {
         return new ModelAndView("error", "message", ex.getClass().getSimpleName());
-    }
+    } 
 
 }
