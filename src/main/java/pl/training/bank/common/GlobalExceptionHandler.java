@@ -6,6 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import pl.training.bank.account.services.AccountNotFoundException;
@@ -13,6 +14,7 @@ import pl.training.bank.common.dto.ExceptionDto;
 
 import java.util.Locale;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -32,6 +34,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity onAccountNotFoundException(AccountNotFoundException ex, Locale locale) {
         return createResponse(ex, NOT_FOUND, locale);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity onAccessDeniedException(AccessDeniedException ex, Locale locale) {
+        return createResponse(ex, FORBIDDEN, locale);
     }
 
     private ResponseEntity createResponse(Exception ex, HttpStatus status, Locale locale) {

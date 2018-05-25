@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.training.bank.account.dto.AccountDto;
 import pl.training.bank.account.entity.Account;
@@ -30,6 +31,7 @@ public class AccountController {
     private AccountService accountService;
     private UriBuilder uriBuilder = new UriBuilder();
 
+    @Secured("Test")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAccount() {
         Account account = accountService.createAccount();
