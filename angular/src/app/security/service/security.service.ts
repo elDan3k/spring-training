@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Api} from "../../api";
-import {Observable} from "rxjs/Observable";
 import {User} from "../model/user";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/do";
+import {Observable} from "rxjs/internal/Observable";
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
+import {Api} from "../../bank/api";
 
 @Injectable()
 export class  SecurityService {

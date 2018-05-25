@@ -6,7 +6,7 @@ export class User {
   constructor(json) {
     this.name = json.login;
     json.roles.forEach(role => {
-      this.roles.push(authotiry.name.replace('ROLE_', ''));
+      this.roles.push(role.name.replace('ROLE_', ''));
     });
   }
 

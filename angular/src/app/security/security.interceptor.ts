@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable()
 export class SecurityInterceptor implements HttpInterceptor {
