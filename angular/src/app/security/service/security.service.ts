@@ -56,7 +56,7 @@ export class  SecurityService {
     const credentials = this.prepareCredentials(username, password);
     return this.retrieveToken(credentials)
       .do(token => this.setToken(token))
-      .flatMap(() => this.retrieveUser())
+      .mergeMap(() => this.retrieveUser())
       .do(user => this.setUser(user))
   }
 
