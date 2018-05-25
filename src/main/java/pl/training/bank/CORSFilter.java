@@ -1,6 +1,9 @@
 package pl.training.bank;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +13,8 @@ import java.io.IOException;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 import static org.springframework.http.HttpHeaders.*;
 
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
 public class CORSFilter implements Filter {
 
     private static final String ALL = "*";
