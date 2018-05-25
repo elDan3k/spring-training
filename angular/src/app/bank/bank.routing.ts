@@ -11,7 +11,7 @@ const routes: Route[] = [
   },
   {
     path: 'bank/disposition',
-    component: DispositionComponent
+    component: DispositionComponent,
     canActivate: [SecurityGuard]
   },
 ];
