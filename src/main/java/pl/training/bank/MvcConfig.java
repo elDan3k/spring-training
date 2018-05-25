@@ -12,21 +12,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 
-@EnableSwagger2
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public Mapper mapper() {
         return new ModelMapperAdapter();
-    }
-
-    @Bean
-    public Docket productApi() {
-        return new Docket(SWAGGER_2)
-                .select()
-                .apis(basePackage("pl.training.bank"))
-                .build();
     }
 
     @Override
