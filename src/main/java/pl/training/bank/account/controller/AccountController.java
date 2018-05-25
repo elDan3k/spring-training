@@ -2,9 +2,8 @@ package pl.training.bank.account.controller;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.training.bank.account.dto.AccountDto;
 import pl.training.bank.account.entity.Account;
@@ -17,8 +16,8 @@ import pl.training.bank.common.mapper.Mapper;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.http.MediaType.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/accounts", produces = {APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE})
@@ -31,7 +30,7 @@ public class AccountController {
     private AccountService accountService;
     private UriBuilder uriBuilder = new UriBuilder();
 
-    @Secured("Test")
+    //@Secured("Test")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAccount() {
         Account account = accountService.createAccount();
@@ -46,6 +45,7 @@ public class AccountController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAccounts(@RequestParam(value = "pageNumber", required = false, defaultValue = "0") int pageNumber,
                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
