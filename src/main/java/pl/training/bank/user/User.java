@@ -1,6 +1,9 @@
 package pl.training.bank.user;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +12,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 @Data
 public class User implements UserDetails {
@@ -16,7 +21,9 @@ public class User implements UserDetails {
     @GeneratedValue
     @Id
     private Long id;
+    @NonNull
     private String username;
+    @NonNull
     private String password;
     private boolean enabled = true;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

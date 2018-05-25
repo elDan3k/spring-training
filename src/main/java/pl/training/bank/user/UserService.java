@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
@@ -23,7 +25,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.getByUsername(username)
+        Optional<User> user = userRepository.getByUsername(username);
+        return user
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
     }
 
