@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.training.bank.user.Role;
-import pl.training.bank.user.User;
-import pl.training.bank.user.UserService;
+import pl.training.bank.user.entity.Role;
+import pl.training.bank.user.entity.User;
+import pl.training.bank.user.service.UserService;
 
 import javax.annotation.PostConstruct;
 

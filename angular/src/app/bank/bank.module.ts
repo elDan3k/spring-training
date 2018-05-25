@@ -7,13 +7,15 @@ import { AccountsListComponent } from './component/accounts-list/accounts-list.c
 import { FormsModule } from '@angular/forms';
 import { DispositionComponent } from './component/disposition/disposition.component';
 import { routerModule } from './bank.routing';
+import { SecurityModule } from '../security/security.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    routerModule
+    routerModule,
+    SecurityModule
   ],
   declarations: [
     AccountsListComponent,

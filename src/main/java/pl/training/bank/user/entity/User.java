@@ -1,4 +1,4 @@
-package pl.training.bank.user;
+package pl.training.bank.user.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

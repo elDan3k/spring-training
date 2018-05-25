@@ -1,9 +1,12 @@
-<ul class="nav">
+<ul class="nav" *ngIf="!router.isActive('login')">
   <li class="nav-item">
     <a class="nav-link" routerLink="bank/accounts" routerLinkActive="active">Accounts</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" routerLink="bank/disposition" routerLinkActive="active">Disposition</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#" routerLink="logout" (click)="logout()">Logout {{ username }}</a>
   </li>
 </ul>
 

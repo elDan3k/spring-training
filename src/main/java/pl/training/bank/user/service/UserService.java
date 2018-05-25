@@ -1,4 +1,4 @@
-package pl.training.bank.user;
+package pl.training.bank.user.service;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.training.bank.user.entity.User;
+import pl.training.bank.user.repository.UserRepository;
 
 import java.util.Optional;
 
