@@ -10,7 +10,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Data
 public class UserDto {
 
-    private String login;
+    private String username;
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     @JsonProperty(access = Access.READ_ONLY)
