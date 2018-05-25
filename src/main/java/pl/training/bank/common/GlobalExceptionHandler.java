@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity onException(Exception ex, Locale locale) {
+        ex.printStackTrace();
         return createResponse(ex, INTERNAL_SERVER_ERROR, locale);
     }
 
