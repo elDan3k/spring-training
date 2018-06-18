@@ -3,6 +3,20 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <bean id="historyRepository" class="pl.training.bank.disposition.history.JdbcTemplateHistoryRepository">
+        <constructor-arg name="dataSource" ref="datasource"/>
+    </bean>
+
+    <bean id="historyLogger" class="pl.training.bank.disposition.history.HistoryLogger">
+        <constructor-arg name="historyRepository" ref="historyRepository"/>
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="historyLogger">
+            <aop:after-returning pointcut="execution(void pl.training.bank.disposition.DispositionService.process(..)) and args(disposition)" method="onOperationSuccess"/>
+        </aop:aspect>
+    </aop:config>
+
     <bean id="dispositionService" class="pl.training.bank.disposition.DispositionService">
         <constructor-arg name="accountRepository" ref="accountRepository"/>
         <constructor-arg name="operations">
