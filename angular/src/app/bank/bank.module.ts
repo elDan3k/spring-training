@@ -26,7 +26,7 @@ import { AccountResolver } from './account-resolver';
   ],
   providers: [
     {
-      provide: "BankService",
+      provide: 'BankService',
       useClass: BankService
     },
     AccountResolver,

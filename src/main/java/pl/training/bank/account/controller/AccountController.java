@@ -54,6 +54,16 @@ public class AccountController {
         return ResponseEntity.ok(pageDto);
     }
 
+    @RequestMapping(value = "{number}", method = RequestMethod.PUT)
+    public ResponseEntity updateAccount(@RequestBody AccountDto accountDto, @PathVariable("number") String number) {
+        if (!number.equals(accountDto.getNumber())) {
+            return ResponseEntity.badRequest().build();
+        }
+        Account account = mapper.map(accountDto, Account.class);
+        accountService.updateAccount(account);
+        return ResponseEntity.noContent().build();
+    }
+
     @RequestMapping(value = "{id}" , method = RequestMethod.DELETE)
     public ResponseEntity deleteAccountById(@PathVariable("id") Long id) {
         accountService.deleteAccount(id);

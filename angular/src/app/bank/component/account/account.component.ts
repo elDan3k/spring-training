@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Account} from "../../model/account";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {BankService} from "../../service/bank.service";
 
 @Component({
   selector: 'app-account',
@@ -11,16 +12,17 @@ export class AccountComponent {
 
   account = new Account();
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, @Inject('BankService') private bankService: BankService) {
     this.account = this.route.snapshot.data.account;
   }
 
   confirm() {
-
+    this.bankService.updateAccount(this.account)
+      .subscribe(() => this.router.navigateByUrl('bank/accounts'))
   }
 
   cancel() {
-
+    this.router.navigateByUrl('bank/account');
   }
 
 }

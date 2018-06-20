@@ -29,4 +29,8 @@ export class BankService {
     return this.httpClient.post<void>(this.api.dispositions, disposition);
   }
 
+  updateAccount(account: Account): Observable<void> {
+    return this.httpClient.put(`${this.api.accounts}/${account.number}`, account);
+  }
+
 }

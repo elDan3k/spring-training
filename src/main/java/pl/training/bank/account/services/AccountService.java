@@ -44,4 +44,9 @@ public class AccountService {
         accountRepository.delete(account);
     }
 
+    public void updateAccount(Account account) {
+        Long id = getAccountByNumber(account.getNumber()).getId();
+        account.setId(id);
+        accountRepository.save(account);
+    }
 }
