@@ -8,9 +8,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let account of accounts">
+  <tr *ngFor="let account of page.data">
     <td>{{account.number}}</td>
     <td>{{account.balance}}</td>
   </tr>
   </tbody>
 </table>
+<div class="row justify-content-around" *ngIf="page.data.length !== 0">
+  <button class="btn btn-outline-primary btn-sm paginator" (click)="previous()" [disabled]="page.pageNumber == 0">Previous</button>
+  <span>{{ page.pageNumber + 1 }} of {{ page.totalPages }}</span>
+  <button class="btn btn-outline-primary btn-sm paginator" (click)="next()" [disabled]="page.pageNumber == page.totalPages - 1">Next</button>
+</div>
