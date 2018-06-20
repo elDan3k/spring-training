@@ -22,7 +22,7 @@ export class AccountComponent {
   }
 
   cancel() {
-    this.router.navigateByUrl('bank/account');
+    this.router.navigateByUrl('bank/accounts');
   }
 
   delete() {
