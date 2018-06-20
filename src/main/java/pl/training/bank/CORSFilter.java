@@ -33,7 +33,7 @@ public class CORSFilter implements Filter {
 
     private void setResponseHeaders(HttpServletResponse response) {
         response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN, ALL);
-        response.setHeader(ACCESS_CONTROL_ALLOW_METHODS, ALL);
+        response.setHeader(ACCESS_CONTROL_ALLOW_METHODS, "GET,PUT,DELETE,POST,OPTIONS");
         response.setHeader(ACCESS_CONTROL_MAX_AGE, MAX_AGE);
         response.setHeader(ACCESS_CONTROL_ALLOW_HEADERS, ALLOWED_HEADERS);
     }
