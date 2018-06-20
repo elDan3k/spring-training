@@ -21,6 +21,10 @@ export class BankService {
     return this.httpClient.get<ResultPage<Account>>(this.api.accounts, {params});
   }
 
+  getAccountByNumber(number: string): Observable<Account> {
+    return this.httpClient.get<Account>(`${this.api.accounts}/${number}`);
+  }
+
   processDisposition(disposition: Disposition): Observable<void> {
     return this.httpClient.post<void>(this.api.dispositions, disposition);
   }

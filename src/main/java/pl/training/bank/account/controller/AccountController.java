@@ -38,12 +38,11 @@ public class AccountController {
         return ResponseEntity.created(uri).body(mapper.map(account, AccountDto.class));
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public AccountDto getById(@PathVariable("id") Long id) {
-        Account account = accountService.getAccountById(id);
+    @RequestMapping(value = "{number}", method = RequestMethod.GET)
+    public AccountDto getByNumber(@PathVariable("number") String number) {
+        Account account = accountService.getAccountByNumber(number);
         return mapper.map(account, AccountDto.class);
     }
-
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET)

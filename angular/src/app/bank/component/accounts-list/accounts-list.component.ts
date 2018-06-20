@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { Account } from '../../model/account';
 import { BankService } from '../../service/bank.service';
 import {ResultPage} from "../../model/result-page";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-accounts-list',
@@ -12,7 +13,7 @@ export class AccountsListComponent {
 
   page = new ResultPage();
 
-  constructor(private bankService: BankService) {
+  constructor(@Inject('BankService') private bankService: BankService, private router: Router) {
     this.load(0);
   }
 
@@ -32,6 +33,10 @@ export class AccountsListComponent {
 
   previous() {
     this.load(this.page.pageNumber - 1);
+  }
+
+  edit(account: Account) {
+    this.router.navigateByUrl(`bank/accounts/${account.number}`);
   }
 
 }

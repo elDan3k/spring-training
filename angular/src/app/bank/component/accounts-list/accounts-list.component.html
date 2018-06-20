@@ -1,6 +1,6 @@
 <h1>Accounts</h1>
 <button class="btn btn-outline-primary btn-sm float-right" (click)="createAccount()">Create account</button>
-<table class="table">
+<table class="table table-hover">
   <thead>
   <tr>
     <th>Number</th>
@@ -8,13 +8,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let account of page.data">
+  <tr *ngFor="let account of page.data" (click)="edit(account)">
     <td>{{account.number}}</td>
     <td>{{account.balance}}</td>
   </tr>
   </tbody>
 </table>
-<div class="row justify-content-around" *ngIf="page.data.length !== 0">
+<div class="row justify-content-around" *ngIf="page.data?.length !== 0">
   <button class="btn btn-outline-primary btn-sm paginator" (click)="previous()" [disabled]="page.pageNumber == 0">Previous</button>
   <span>{{ page.pageNumber + 1 }} of {{ page.totalPages }}</span>
   <button class="btn btn-outline-primary btn-sm paginator" (click)="next()" [disabled]="page.pageNumber == page.totalPages - 1">Next</button>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { Disposition } from '../../model/disposition';
 import { BankService } from '../../service/bank.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ export class DispositionComponent {
 
   disposition = new Disposition();
 
-  constructor(private bankService: BankService, private router: Router) {
+  constructor(@Inject('BankService') private bankService: BankService, private router: Router) {
   }
 
   showAccounts() {

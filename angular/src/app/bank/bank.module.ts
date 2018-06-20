@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { DispositionComponent } from './component/disposition/disposition.component';
 import { routerModule } from './bank.routing';
 import { SecurityModule } from '../security/security.module';
+import { AccountComponent } from './component/account/account.component';
+import { AccountResolver } from './account-resolver';
 
 @NgModule({
   imports: [
@@ -19,10 +21,15 @@ import { SecurityModule } from '../security/security.module';
   ],
   declarations: [
     AccountsListComponent,
-    DispositionComponent
+    DispositionComponent,
+    AccountComponent
   ],
   providers: [
-    BankService,
+    {
+      provide: "BankService",
+      useClass: BankService
+    },
+    AccountResolver,
     Api
   ]
 })
