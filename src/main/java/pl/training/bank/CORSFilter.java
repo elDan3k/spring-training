@@ -20,6 +20,7 @@ public class CORSFilter implements Filter {
     private static final String ALL = "*";
     private static final String MAX_AGE = "3600";
     private static final String ALLOWED_HEADERS = "Origin, X-Requested-With, Content-Type, Accept, Authorization";
+    private static final String ALLOWED_METHODS = "GET,POST,PUT,DELETE,OPTIONS";
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -33,7 +34,7 @@ public class CORSFilter implements Filter {
 
     private void setResponseHeaders(HttpServletResponse response) {
         response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN, ALL);
-        response.setHeader(ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE,OPTIONS");
+        response.setHeader(ACCESS_CONTROL_ALLOW_METHODS, ALLOWED_METHODS);
         response.setHeader(ACCESS_CONTROL_MAX_AGE, MAX_AGE);
         response.setHeader(ACCESS_CONTROL_ALLOW_HEADERS, ALLOWED_HEADERS);
     }
