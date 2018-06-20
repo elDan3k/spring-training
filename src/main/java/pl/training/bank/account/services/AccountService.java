@@ -39,8 +39,8 @@ public class AccountService {
                 .orElseThrow(AccountNotFoundException::new);
     }
 
-    public void deleteAccount(Long id) {
-        Account account = getAccountById(id);
+    public void deleteAccount(String number) {
+        Account account = getAccountByNumber(number);
         accountRepository.delete(account);
     }
 

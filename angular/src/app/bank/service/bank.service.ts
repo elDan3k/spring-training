@@ -30,7 +30,11 @@ export class BankService {
   }
 
   updateAccount(account: Account): Observable<void> {
-    return this.httpClient.put(`${this.api.accounts}/${account.number}`, account);
+    return this.httpClient.put<void>(`${this.api.accounts}/${account.number}`, account);
+  }
+
+  deleteAccount(accountNumber: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.api.accounts}/${accountNumber}`);
   }
 
 }

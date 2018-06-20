@@ -18,11 +18,16 @@ export class AccountComponent {
 
   confirm() {
     this.bankService.updateAccount(this.account)
-      .subscribe(() => this.router.navigateByUrl('bank/accounts'))
+      .subscribe(() => this.router.navigateByUrl('bank/accounts'));
   }
 
   cancel() {
     this.router.navigateByUrl('bank/account');
+  }
+
+  delete() {
+    this.bankService.deleteAccount(this.account.number)
+      .subscribe(() => this.router.navigateByUrl('bank/accounts'));
   }
 
 }
