@@ -7,6 +7,9 @@ import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.env.Environment;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import pl.training.bank.account.AccountConfig;
 import pl.training.bank.common.BeanLoggerPostProcessor;
 import pl.training.bank.common.ContextListener;
@@ -18,6 +21,7 @@ import javax.sql.DataSource;
 
 import static java.lang.Integer.parseInt;
 
+@EnableTransactionManagement
 @PropertySource("classpath:jdbc.properties")
 @Import({AccountConfig.class, DispositionConfig.class, OperationConfig.class})
 @EnableAspectJAutoProxy
@@ -57,5 +61,9 @@ public class BankConfig {
         return dataSource;
     }
 
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 
 }
