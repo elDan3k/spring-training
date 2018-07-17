@@ -7,21 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AccountsListExtractor implements ResultSetExtractor<List<Account>> {
 
-    private static final String ID_COLUMN = "id";
-    private static final String NUMBER_COLUMN = "account_number";
-    private static final String BALANCE_COLUMN = "balance";
+    private AccountExtractor accountExtractor = new AccountExtractor();
 
     @Override
     public List<Account> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
         List<Account> accounts = new ArrayList<>();
         while (resultSet.next()) {
-            Account account = new Account(resultSet.getString(NUMBER_COLUMN));
-            account.setId(resultSet.getLong(ID_COLUMN));
-            account.setBalance(resultSet.getLong(BALANCE_COLUMN));
-            accounts.add(account);
+            accountExtractor.mapAccount(resultSet).ifPresent(accounts::add);
         }
         return accounts;
     }

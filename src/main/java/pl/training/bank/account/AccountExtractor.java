@@ -16,12 +16,16 @@ public class AccountExtractor implements ResultSetExtractor<Optional<Account>> {
     @Override
     public Optional<Account> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
         if (resultSet.next()) {
-            Account account = new Account(resultSet.getString(NUMBER_COLUMN));
-            account.setId(resultSet.getLong(ID_COLUMN));
-            account.setBalance(resultSet.getLong(BALANCE_COLUMN));
-            return Optional.of(account);
+           return mapAccount(resultSet);
         }
         return Optional.empty();
+    }
+
+    Optional<Account> mapAccount(ResultSet resultSet) throws SQLException {
+        Account account = new Account(resultSet.getString(NUMBER_COLUMN));
+        account.setId(resultSet.getLong(ID_COLUMN));
+        account.setBalance(resultSet.getLong(BALANCE_COLUMN));
+        return Optional.of(account);
     }
 
 }
