@@ -2,23 +2,22 @@ package pl.training.bank.account;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.training.bank.account.AccountRepository;
-import pl.training.bank.account.AccountService;
-import pl.training.bank.account.HashMapAccountRepository;
 import pl.training.bank.generator.AccountNumberGenerator;
-import pl.training.bank.generator.IncrementalAccountNumberGenerator;
+import pl.training.bank.generator.JdbcTemplateIncrementalAccountNumberGenerator;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class AccountConfig {
 
     @Bean
-    public AccountNumberGenerator accountNumberGenerator() {
-        return new IncrementalAccountNumberGenerator();
+    public AccountNumberGenerator accountNumberGenerator(DataSource dataSource) {
+        return new JdbcTemplateIncrementalAccountNumberGenerator(dataSource);
     }
 
     @Bean
-    public AccountRepository accountRepository() {
-        return new HashMapAccountRepository();
+    public AccountRepository accountRepository(DataSource dataSource) {
+        return new JdbcTemplateAccountRepository(dataSource);
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
