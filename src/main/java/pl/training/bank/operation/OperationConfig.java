@@ -6,6 +6,10 @@ import pl.training.bank.operation.DepositOperation;
 import pl.training.bank.operation.LargeDepositListener;
 import pl.training.bank.operation.LargeDepositLogger;
 import pl.training.bank.operation.WithdrawOperation;
+import pl.training.bank.operation.history.HistoryLogger;
+import pl.training.bank.operation.history.JdbcTemplateHistoryRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class OperationConfig {
@@ -28,6 +32,16 @@ public class OperationConfig {
     @Bean
     public LargeDepositListener largeDepositListener() {
         return new LargeDepositListener();
+    }
+
+    @Bean
+    public JdbcTemplateHistoryRepository jdbcTemplateHistoryRepository(DataSource dataSource) {
+        return new JdbcTemplateHistoryRepository(dataSource);
+    }
+
+    @Bean
+    public HistoryLogger historyLogger(JdbcTemplateHistoryRepository historyRepository) {
+        return new HistoryLogger(historyRepository);
     }
 
 }
