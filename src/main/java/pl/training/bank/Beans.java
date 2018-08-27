@@ -9,6 +9,7 @@ import pl.training.bank.account.HashMapAccountRepository;
 import pl.training.bank.common.BeanLoggerPostProcessor;
 import pl.training.bank.common.Profiler;
 import pl.training.bank.disposition.DispositionService;
+import pl.training.bank.disposition.LargeDepositLogger;
 import pl.training.bank.generator.AccountNumberGenerator;
 import pl.training.bank.generator.IncrementalAccountNumberGenerator;
 import pl.training.bank.disposition.ConsoleDispositionLogger;
@@ -65,6 +66,11 @@ public class Beans {
     @Bean
     public ConsoleDispositionLogger dispositionLogger() {
         return new ConsoleDispositionLogger();
+    }
+
+    @Bean
+    public LargeDepositLogger largeDepositLogger() {
+        return new LargeDepositLogger();
     }
 
 }
