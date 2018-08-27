@@ -33,7 +33,15 @@
     <bean id="profiler" class="pl.training.bank.common.Profiler"/>
     <bean id="dispositionLogger" class="pl.training.bank.disposition.ConsoleDispositionLogger"/>
 
+    <bean id="largeDepositLogger" class="pl.training.bank.disposition.LargeDepositLogger">
+        <property name="maxDepositLimit" value="100"/>
+    </bean>
+
     <aop:config>
+        <aop:aspect ref="largeDepositLogger">
+            <aop:after-returning pointcut="execution(void pl.training.bank.disposition.DispositionService.process(..)) and args(disposition)"
+                                 method="checkDepositSize"/>
+        </aop:aspect>
         <aop:aspect ref="profiler">
             <!--<aop:around method="logExecutionTime" pointcut="bean(dispositionService)"/>-->
             <aop:around method="logExecutionTime" pointcut="@annotation(pl.training.bank.common.ExecutionTime)"/>
