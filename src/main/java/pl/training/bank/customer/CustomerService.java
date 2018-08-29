@@ -25,7 +25,7 @@ public class CustomerService {
             customer.getAccounts().add(account);
             customerRepository.save(customer);
         });
-    }
 
+    }
 
 }
