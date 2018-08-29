@@ -15,11 +15,6 @@ public class AccountConfig {
         return new JpaIncrementalAccountNumberGenerator(entityManagerFactory);
     }
 
-    @Bean
-    public AccountRepository accountRepository() {
-        return new JpaAccountRepository();
-    }
-
     @Bean(initMethod = "init", destroyMethod = "destroy")
     public AccountService accountService(AccountNumberGenerator accountNumberGenerator, AccountRepository accountRepository) {
         return new AccountService(accountNumberGenerator, accountRepository);
