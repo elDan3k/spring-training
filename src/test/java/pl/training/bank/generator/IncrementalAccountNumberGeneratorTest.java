@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,7 +24,7 @@ class IncrementalAccountNumberGeneratorTest {
     @Test
     void shouldGenerateNewAccountNumberIncreasingPreviousOne() {
         String initialAccountNumber = accountNumberGenerator.getNext();
-        assertEquals(parseInt(initialAccountNumber) + 1, parseInt(accountNumberGenerator.getNext()));
+        assertEquals(parseLong(initialAccountNumber) + 1, parseLong(accountNumberGenerator.getNext()));
     }
 
 }
